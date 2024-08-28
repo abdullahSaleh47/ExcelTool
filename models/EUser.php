@@ -17,6 +17,9 @@ use yii\db\ActiveRecord;
  */
 class EUser extends ActiveRecord
 {
+    const SCENARIO_CREATE='create';
+    const SCENARIO_UPDATE='update';
+
     public static function tableName()
     {
         return 'User';
@@ -30,6 +33,12 @@ class EUser extends ActiveRecord
             [['Date'], 'safe'],
             [['First_Name', 'Last_Name', 'Gender', 'Country'], 'string', 'max' => 255],
         ];
+    }
+    public function scenarios(){
+        $scenarios=parent::scenarios();
+        $scenarios['create']= ['First_Name','Last_Name','Gender','Age','Country','Date','UserID'];
+        $scenarios['update']= ['First_Name','Last_Name','Gender','Age','Country','Date','UserID'];
+        return $scenarios;
     }
     public function attributeLabels()
     {
